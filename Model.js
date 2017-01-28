@@ -1,6 +1,6 @@
 function Model(boardHeight, boardWidth, snakeID)
 {
-	this.snakeID		 = snakeID;
+	this.snakeID		 = snakeID;// idea it gets ID from server or something.
 	this.bonuses 	 	 = [];
 	this.snakes 	 	 = [];
 	this.boardWidth  	 = boardWidth;

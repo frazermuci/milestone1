@@ -99,12 +99,16 @@ function testChangeDirectionSnake()
 	s.move();
 	s.move();
 	s.changeDirection([0,-1]);
+	s.changeDirection([0,1]);
+	s.changeDirection([0,-1]);
 	s.move();
 	s.move();
 	s.move();
 	s.changeDirection([-1,0]);
+	s.changeDirection([1, 0]);
 	s.move();
 	s.changeDirection([0,1]);
+	s.changeDirection([0, -1]);
 	s.move();
 	
 	console.assert(s.body[0].x == 5 && s.body[0].y == 2,

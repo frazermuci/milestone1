@@ -25,6 +25,7 @@ function convertVectorToArray(vector)
 //initializes bodyList
 function genBodyList(x, y, direction)//start at some coords and do not hard code
 {
+	direction = convertVectorToArray(direction);
 	var body = [];
 	var cdirection = [0,0];
 	var dx = x;
@@ -99,10 +100,15 @@ function giveMove(snake)
 //check for whether or not change happens in oppo direction
 function giveChangeDirection(snake)
 {
-	var func = function(vector)
+	var func = function(xy)
 	{
-		//body = snake.body[0];
-		snake.direction = vector;
+		xy = convertVectorToArray(xy);
+		var dir  = translateDirection([xy[0], xy[1]]);
+		var sdir = translateDirection([snake.direction[0], snake.direction[1]]);
+		if(!checkOppo(dir, sdir))
+		{
+			snake.direction = xy;
+		}
 	}
 	return func;
 }
