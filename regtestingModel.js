@@ -47,7 +47,7 @@ function testMakeBonus()
 	var model = new Model(8, 16, 1);
 	model.makeBonus();
 	console.assert(model.getBonuses().length == 1, "bonus not added", model);
-	var check = convertVectorToArray(model.getBonuses());
+	var check = convertVectorToArray(model.getBonuses()[0]);
 	console.assert(check[0] <= 8 && check[0] >= 0 && check[1] <= 16 && check[1] >= 0,
 					"Bonus not added in bounds", model);
 }

@@ -92,7 +92,7 @@ function genMakeBonus(model)
 		for(var i = 0; i < objList.length; i++)
 		{
 			var xy = convertVectorToArray(objList[i]);
-			ret = x == xy[0] && y == xy[1];
+			ret = (x == xy[0] && y == xy[1]);
 			if(ret)
 			{
 				break;
@@ -102,16 +102,18 @@ function genMakeBonus(model)
 	}
 	function func()
 	{
-		var max = Math.max(model.boardHeight, model.boardWidth);
-		var min = Math.min(model.boardHeight, model.boardWidth);
-		var x = -1;
-		var y = -1;
-		while(!inBounds(x,y) || objectInTheWay(x,y))
+		//var max = Math.max(model.boardHeight, model.boardWidth);
+		//var min = Math.min(model.boardHeight, model.boardWidth);
+		x = Math.round(Math.random() % model.boardWidth);
+		y = Math.round(Math.random() % model.boardHeight);
+		while(objectInTheWay(x,y)) //indefinite loop
 		{
-			x = Math.random() * (max - min) + min;
-			y = Math.random() * (max - min) + min;
+			//x = Math.random() * (max - min) + min;
+			//y = Math.random() * (max - min) + min;
+			x = Math.round(Math.random() % model.boardWidth);
+			y = Math.round(Math.random() % model.boardHeight);
 		}
-		model.bonuses = model.bonuses.concat([x,y]);
+		model.bonuses = model.bonuses.concat([[x,y]]);
 	}
 	return func;
 }
