@@ -11,6 +11,8 @@ function Snake(x, y, direction, ID)
 	this.move = giveMove(this);
 	this.getBody = ()=>{return this.body};
 	this.getID = ()=>{return this.ID};
+	this.isDead = 0;
+	this.getIsDead = ()=>{return this.isDead};
 };
 
 //initializes bodyList
@@ -70,7 +72,7 @@ function giveAddBody(snake)//add in oppo direction of last body.
 //in bodyList
 function giveMove(snake)
 {
-	var func = function()
+	var func = function(objList, bList)
 	{
 		var head = snake.body[0];
 		//maybe refactor to use v2
@@ -83,6 +85,28 @@ function giveMove(snake)
 			snake.body[i].y = snake.body[i-1].y;
 		}
 		head.add(snake.direction);
+		//Code that handles death condition and grow condition
+		for(var i = 0; i < objList.length; i++) //needs to make sure that's its own
+												//body is not in objList
+		{
+			var obj   = convertVectorToArray(objList[i]);
+			var sbody = convertVectorToArray(snake.body[0]); 
+			if(obj[0] == sbody[0] && obj[1] == sbody[1])
+			{
+				snake.isDead = 1;
+			}
+		}
+		
+		/*
+		for(var i = 0; i < bList.length; i++)
+		{
+			var obj = convertVectorToArray(bList[i]);
+			var sbody = convertVectorToArray(snake.body[0]); 
+			if(obj[0] == sbody[0] && obj[1] == sbody[1])
+			{
+				snake.addBody();
+			}
+		}*/
 	}
 	return func;
 }

@@ -1,3 +1,5 @@
+//MIGHT BE ASSUMING INCLUSIVE BOUNDS WHILE ITS 0 - (BOUND - 1)
+
 function Model(boardWidth,boardHeight, snakeID)
 {
 	this.snakeID		 = snakeID;// idea it gets ID from server or something.
@@ -24,6 +26,8 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.getClock
 	this.incClock
 	this.getIsRunning = ()=>{return this.isRunning};
+	
+	this.progressState  =// can return 0 for continue, 1 for loss, 2 for draw 
 };
 
 function genAddSnake(model)
@@ -106,6 +110,36 @@ function genMakeBonus(model)
 			y = Math.round(Math.random() % model.boardHeight);
 		}
 		model.bonuses = model.bonuses.concat([[x,y]]);
+	}
+	return func;
+}
+
+function genProgressState(model)
+{
+	function giveObjList(ID)
+	{
+		var objList = [];
+		var snakes = model.snakes.filter((x)=>{x.getID() != ID});
+		snakes.map((x)=>{objList = objList.concat(x.body)});
+		for(var i = 0; i < model.boardWidth; i++)//0 - excluse width
+												  //with constant exclusive width
+		{
+			objList = objList.concat([[i, model.boardHeight-1]]);
+		}
+		for(var i = 0; i < model.boardHeight; i++)//0 - exclusive height
+												   //with constant exclusive height
+		{
+			objList = objList.concat([[model.boardHeight-1,i]]);
+		}
+		return objList;
+	}
+	function func()
+	{
+		for(var i = 0; i < model.snakes.length; i++)
+		{
+			var snake = model.snakes[i]
+			snake.move(giveObjList(snake.getID(), model.bonuses));
+		}
 	}
 	return func;
 }
