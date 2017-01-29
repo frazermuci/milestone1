@@ -119,8 +119,20 @@ function genProgressState(model)
 	function giveObjList(ID)
 	{
 		var objList = [];
-		var snakes = model.snakes.filter((x)=>{x.getID() != ID});
-		snakes.map((x)=>{objList = objList.concat(x.body)});
+		//var snakes = model.snakes.filter((x)=>{x.getID() != ID});
+		//snakes.map((x)=>{objList = objList.concat(x.body)});
+		var mapFunc = (x)=>
+						{
+							if(x.getID() == ID)
+							{
+								objList = objList.concat(x.body.slice(1,x.length));
+							}
+							else
+							{
+								objList = objList.concat(x.body);
+							}
+						};
+		model.snakes.map(mapFunc);
 		for(var i = 0; i < model.boardWidth; i++)//0 - excluse width
 												  //with constant exclusive width
 		{

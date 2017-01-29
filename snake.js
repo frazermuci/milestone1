@@ -87,7 +87,7 @@ function giveMove(snake)
 		head.add(snake.direction);
 		//Code that handles death condition and grow condition
 		for(var i = 0; i < objList.length; i++) //needs to make sure that's its own
-												//body is not in objList
+												//head is not in objList
 		{
 			var obj   = convertVectorToArray(objList[i]);
 			var sbody = convertVectorToArray(snake.body[0]); 
@@ -120,6 +120,9 @@ function giveChangeDirection(snake)
 		xy = convertVectorToArray(xy);
 		var dir  = translateDirection([xy[0], xy[1]]);
 		var sdir = translateDirection([snake.direction[0], snake.direction[1]]);
+		//checks so that snake doesn't
+		//change direction and go backwards
+		//over itself
 		if(!checkOppo(dir, sdir))
 		{
 			snake.direction = xy;
