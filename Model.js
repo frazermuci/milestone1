@@ -27,7 +27,7 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.incClock
 	this.getIsRunning = ()=>{return this.isRunning};
 	
-	this.progressState  =// can return 0 for continue, 1 for loss, 2 for draw 
+	this.progressState  // can return 0 for continue, 1 for loss, 2 for draw 
 };
 
 function genAddSnake(model)
@@ -138,6 +138,7 @@ function genProgressState(model)
 		for(var i = 0; i < model.snakes.length; i++)
 		{
 			var snake = model.snakes[i]
+			console.log(giveObjList(snake.getID(), model.bonuses));
 			snake.move(giveObjList(snake.getID(), model.bonuses));
 		}
 	}
