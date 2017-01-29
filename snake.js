@@ -40,16 +40,11 @@ function giveAddBody(snake)
 	var func = function(objList)//obj list of everythin on map
 	{
 		lastBody = snake.body[snake.body.length-1];
-		//lastBody.isLast = 0;
 		x = lastBody.x;
 		y = lastBody.y;
-		//var xy = changeXYAddBody(x,y,snake.direction);
 		
-		//maybe refactor to use v2
 		var xy = addHelper(x, y, snake.direction, objList);
-		//body = new Body(xy[0], xy[1]);
 		body = new Vector(xy[0], xy[1]);
-		//body.isLast = 1;
 		snake.body = snake.body.concat([body]);
 	}
 	return func;
