@@ -1,6 +1,6 @@
 //this is the snake.
 //Flyweight this????? So that server can handle it????
-function Snake(x, y, direction, ID = 0)
+function Snake(x, y, direction, ID)
 {
 	//maybe initialize with two or three and don't pass in
 	this.ID = ID;
