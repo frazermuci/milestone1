@@ -42,7 +42,7 @@ function testModelChangeDirection()
 }
 testModelChangeDirection();
 
-/*function testMakeBonus()
+function testMakeBonus()
 {
 	var model = new Model(8, 16, 1);
 	model.makeBonus();
@@ -51,4 +51,4 @@ testModelChangeDirection();
 	console.assert(check[0] <= 8 && check[0] >= 0 && check[1] <= 16 && check[1] >= 0,
 					"Bonus not added in bounds", model);
 }
-testMakeBonus();*/
+testMakeBonus();
