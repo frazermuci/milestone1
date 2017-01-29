@@ -177,10 +177,10 @@ function genProgressState(model)
 		for(var i = 0; i < model.snakes.length; i++)
 		{
 			var snake = model.snakes[i];
-			//var checkLength = snake.length;
+			var checkLength = snake.length;
 			snake.move(giveObjList(snake.getID(), model.bonuses));
-			/* //logic to check if snake grew to know if a bonus needs
-			   //to be removed
+			//logic to check if snake grew to know if a bonus needs
+			//to be removed
 			if(snake.body.length > checkLength)
 			{
 				var snakeCheck = convertVectorToArray(snake.body[0]);
@@ -194,7 +194,6 @@ function genProgressState(model)
 					}
 				}
 			}
-			*/
 		}
 	}
 	return func;

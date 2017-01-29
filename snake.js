@@ -75,7 +75,7 @@ function giveMove(snake)
 			}
 		}
 		
-		/*//logic that checks if bonus was ran into
+		//logic that checks if bonus was ran into
 		for(var i = 0; i < bList.length; i++)
 		{
 			var obj = convertVectorToArray(bList[i]);
@@ -84,7 +84,7 @@ function giveMove(snake)
 			{
 				snake.addBody();
 			}
-		}*/
+		}
 	}
 	return func;
 }
