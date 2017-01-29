@@ -13,15 +13,6 @@ function Snake(x, y, direction, ID)
 	this.getID = ()=>{return this.ID};
 };
 
-function convertVectorToArray(vector)
-{
-	if(vector.constructor === Array)
-	{
-		return vector;
-	}
-	return [vector.getX(), vector.getY()];
-}
-
 //initializes bodyList
 function genBodyList(x, y, direction)//start at some coords and do not hard code
 {

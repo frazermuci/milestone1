@@ -1,6 +1,15 @@
 //enum that defines directions
 var direction = {UP:1, DOWN:2, LEFT:3, RIGHT:4};
 
+function convertVectorToArray(vector)
+{
+	if(vector.constructor === Array)
+	{
+		return vector;
+	}
+	return [vector.getX(), vector.getY()];
+}
+
 function giveV2(x, y, direction)
 {
 	var dx = x + direction[0];
