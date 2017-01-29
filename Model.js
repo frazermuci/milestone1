@@ -79,10 +79,6 @@ function genGetChangeDirection(model)
 
 function genMakeBonus(model)
 {
-	function inBounds(x,y)
-	{
-		return x >= 0 && y >= 0 && x <= model.boardWidth && y <= model.boardHeight;
-	}
 	function objectInTheWay(x,y)
 	{
 		var ret = false;
@@ -102,14 +98,10 @@ function genMakeBonus(model)
 	}
 	function func()
 	{
-		//var max = Math.max(model.boardHeight, model.boardWidth);
-		//var min = Math.min(model.boardHeight, model.boardWidth);
 		x = Math.round(Math.random() % model.boardWidth);
 		y = Math.round(Math.random() % model.boardHeight);
-		while(objectInTheWay(x,y)) //indefinite loop
+		while(objectInTheWay(x,y))
 		{
-			//x = Math.random() * (max - min) + min;
-			//y = Math.random() * (max - min) + min;
 			x = Math.round(Math.random() % model.boardWidth);
 			y = Math.round(Math.random() % model.boardHeight);
 		}
