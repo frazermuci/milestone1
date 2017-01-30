@@ -63,28 +63,6 @@ function giveMove(snake)
 			snake.body[i].y = snake.body[i-1].y;
 		}
 		head.add(snake.direction);
-		//Code that handles death condition and grow condition
-		for(var i = 0; i < objList.length; i++) //needs to make sure that's its own
-												//head is not in objList
-		{
-			var obj   = convertVectorToArray(objList[i]);
-			var sbody = convertVectorToArray(snake.body[0]); 
-			if(obj[0] == sbody[0] && obj[1] == sbody[1])
-			{
-				snake.isDead = 1;
-			}
-		}
-		
-		//logic that checks if bonus was ran into
-		for(var i = 0; i < bList.length; i++)
-		{
-			var obj = convertVectorToArray(bList[i]);
-			var sbody = convertVectorToArray(snake.body[0]); 
-			if(obj[0] == sbody[0] && obj[1] == sbody[1])
-			{
-				snake.addBody();
-			}
-		}
 	}
 	return func;
 }

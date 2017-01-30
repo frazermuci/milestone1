@@ -125,7 +125,7 @@ function genMakeBonus(model)
 	}
 	return func;
 	
-	/* //possible wrapping
+	/* //wrapper
 	function wrapper()
 	{
 		if (model.bonuses.length < model.bonusNumber)
@@ -133,8 +133,8 @@ function genMakeBonus(model)
 			func();
 		}
 	}
-	return wrapper;
 	*/
+	return wrapper;
 }
 
 //generates progressState
