@@ -26,7 +26,8 @@ function Model(boardWidth,boardHeight, snakeID)
 	
 	this.getClock
 	this.incClock
-	this.getIsRunning = ()=>{return this.isRunning};
+	this.getModel 	     = ()=>{return this};
+	this.getIsRunning    = ()=>{return this.isRunning};
 	
 	this.progressState  
 };
