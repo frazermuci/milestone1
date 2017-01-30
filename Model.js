@@ -27,9 +27,7 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.getClock
 	this.incClock
 	this.getModel 	     = ()=>{return this};
-	this.getIsRunning    = ()=>{return this.isRunning};
-	
-	this.progressState  
+	this.getIsRunning    = ()=>{return this.isRunning}; 
 };
 
 function genAddSnake(model) // snake adder
@@ -135,68 +133,5 @@ function genMakeBonus(model)
 	}
 	*/
 	return wrapper;
-}
-
-//generates progressState
-function genProgressState(model)
-{
-	// helper that constructs objList for checking if snake dies
-	function giveObjList(ID) 
-	{
-		var objList = [];
-		//maps over snake objects and fills out objList
-		var mapFunc = (x)=>
-						{
-							if(x.getID() == ID)
-							{
-								objList = objList.concat(x.body.slice(1,x.length));
-							}
-							else
-							{
-								objList = objList.concat(x.body);
-							}
-						};
-		model.snakes.map(mapFunc);
-		//iterate over map bounds
-		for(var i = 0; i < model.boardWidth; i++)//0 - excluse width
-												  //with constant exclusive width
-		{
-			objList = objList.concat([[i, model.boardHeight-1]]);
-		}
-		for(var i = 0; i < model.boardHeight; i++)//0 - exclusive height
-												   //with constant exclusive height
-		{
-			objList = objList.concat([[model.boardHeight-1,i]]);
-		}
-		return objList;
-	}
-	//generated function
-	//progresses all the snakes
-	function func()
-	{
-		//iterates through snakes and moves them
-		for(var i = 0; i < model.snakes.length; i++)
-		{
-			var snake = model.snakes[i];
-			var checkLength = snake.length;
-			snake.move(giveObjList(snake.getID(), model.bonuses));
-			//logic to check if snake grew to know if a bonus needs
-			//to be removed
-			if(snake.body.length > checkLength)
-			{
-				var snakeCheck = convertVectorToArray(snake.body[0]);
-				for(var i =0; i < model.bonuses.length; i++)
-				{
-					var bonusCheck = convertVectorToArray(model.bonuses[i]);
-					if(bonusCheck[0] == snakeCheck[0] && bonusCheck[1] == snakeCheck[1])
-					{
-						model.bonuses.splice(i, 1);
-						break;
-					}
-				}
-			}
-		}
-	}
-	return func;
 }
 						   

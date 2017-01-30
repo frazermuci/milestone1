@@ -54,7 +54,7 @@ function giveAddBody(snake)
 //in bodyList
 function giveMove(snake)
 {
-	var func = function(objList, bList)
+	var func = function()
 	{
 		var head = snake.body[0];
 		for(var i = snake.body.length-1; i != 0; i--)
