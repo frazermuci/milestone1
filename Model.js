@@ -15,7 +15,7 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.getSnakes		 = ()=>{return this.snakes};
 	this.growSnake		 = genGrowSnake(this);
 	
-	this.changeDirection = genGetChangeDirection(this);
+	this.changeDirection = genGetChangeDirection(this);//this does not bound check
 	
 	this.getBonuses  	 = ()=>{return this.bonuses};
 	this.makeBonus 		 = genMakeBonus(this);
@@ -131,7 +131,7 @@ function genMakeBonus(model)
 			func();
 		}
 	}
-	*/
-	return wrapper;
+	
+	return wrapper;*/
 }
 						   
