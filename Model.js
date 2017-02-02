@@ -74,9 +74,9 @@ function genGrowSnake(model) // adds new body part
 
 function genGetChangeDirection(model) //changes direction of snake associated with model
 {
-	function func(direction)
+	function func(ID,direction)
 	{
-		snake = model.getSnake(model.snakeID);
+		snake = model.getSnake(ID);
 		snake.changeDirection(direction);
 	}
 	return func;
