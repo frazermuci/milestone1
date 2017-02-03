@@ -52,15 +52,13 @@ function translateDirection(dir)
 		return 2;
 	}
 }
-//helper function to check for objects so that
-//a new body part is not placed over solid objects
-function addHelper(x, y, dir, objList) //will add in the opposite direction of head
+function addHelper(x, y, dir, objList) //will add in reference to direction of head
 {
 	var circle = translateDirection(dir)-1;
 	var check = true;
-	while(check) // checks every direction until it finds a suitable x y
+	while(check)// this means we cant have a situation where three things suround a square
 	{
-		circle = circle % 4 + 1;
+		circle = circle % 4 + 1;//also can't move in direction
 		var xy = giveCoord(x, y, circle, [(x,y)=>{return x-y},(x,y)=>{return x+y}]);
 		for(var i =0; i < objList.length; i++)
 		{

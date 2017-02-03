@@ -8,7 +8,10 @@ function Model(boardWidth,boardHeight, snakeID)
 								   // with local model
 	this.score 			 = [0,0];
 	this.bonuses 	 	 = [];
-	this.snakes 	 	 = [new Snake (0, 1, [0, 1], 0), new Snake (5, 4, [0, 1], 1)];
+
+	this.snakes 	 	 = [new Snake(2,2,new Vector(0,1), 0),
+								new Snake(4,4,new Vector(0,1), 0)];
+
 	this.boardWidth  	 = boardWidth;
 	this.boardHeight 	 = boardHeight;
 	this.isRunning   	 = 0;
@@ -19,7 +22,11 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.growSnake		 = genGrowSnake(this);
 
 	this.changeDirection = genGetChangeDirection(this);//this does not bound check
+
 	this.setScore        = (score)=>{this.score = score};
+
+
+
 	this.getBonuses  	 = ()=>{return this.bonuses};
 	this.makeBonus 		 = genMakeBonus(this);
 
@@ -35,7 +42,9 @@ function Model(boardWidth,boardHeight, snakeID)
 
 	this.getClock
 	this.incClock
-	this.getModel 	     = ()=>{return this};
+
+	//this.getModel 	     = ()=>{return this};
+
 	this.getIsRunning    = ()=>{return this.isRunning};
 };
 
@@ -153,4 +162,6 @@ function genMakeBonus(model)
 	return wrapper;*/
 }
 
+
 getModel();
+

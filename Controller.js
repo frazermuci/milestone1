@@ -1,14 +1,17 @@
 var controllerInterval;
+
 var socket;
 
 function ControllerTie()
 {
 	socket.done();
+
 }
 
 function ControllerWin(id)
 {
 	socket.done();
+
 }
 
 function ControllerTick()
@@ -19,8 +22,8 @@ function ControllerTick()
     m.growSnake(0);
     m.growSnake(1);
 
-    var snake1 = m.getSnake(1);
-    var snake2 = m.getSnake(2);
+    var snake1 = m.getSnake(0);
+    var snake2 = m.getSnake(1);
 
     var head1 = snake1.getHead();
     var head2 = snake2.getHead();
@@ -40,7 +43,8 @@ function ControllerTick()
     }
 
     // Out of the board
-    if(head1.x >= 0 && head1.x < model.boardWidth && head2.x >= 0 && head2.x < model.boardHeight)
+
+    if(head1.x >= 0 && head1.x < getModel().boardWidth && head2.x >= 0 && head2.x < getModel().boardHeight)
         lose1 = true;
 
     // Colliding with other snake
@@ -88,12 +92,19 @@ function ControllerNewGame()
     getModel().newGame();
     getModel().isRunning = 1;
 	socket = new Socket(getModel);
+
 }
 
 function ControllerStopGame()
 {
     getModel().isRunning = 0;
+
 	socket.done();
+
+
+
+
+
 }
 
 controllerInterval = window.setInterval(ControllerMainLoop, 1000);
