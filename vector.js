@@ -50,3 +50,11 @@ function genAdd(vector)
 	}
 	return func;
 }
+function genEquals(vector)
+{
+	function func(v2)
+	{
+		return vector.x == v2[0] && vector.y == v2[1];
+	}
+	return func;
+}
