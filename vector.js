@@ -7,6 +7,7 @@ function Vector(x, y)
 	this.getY = genGetY(this);
 	this.setY = genSetY(this);
 	this.add  = genAdd(this);
+	this.equals = genEquals(this);
 };
 
 function genGetX(vector)

@@ -1,3 +1,5 @@
+var modelSingleton;
+var modelSingletonInstance = false;
 //ASSUMING EXCLUSIVE BOUNDS WHILE ITS 0 - (BOUND - 1)
 
 function Model(boardWidth,boardHeight, snakeID)
@@ -5,7 +7,8 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.snakeID		 = snakeID;// idea it gets ID from server and associates that snake
 								   // with local model
 	this.bonuses 	 	 = [];
-	this.snakes 	 	 = [];
+	this.snakes 	 	 = [new Snake(2,2,new Vector(0,1), 0),
+								new Snake(4,4,new Vector(0,1), 0)];
 	this.boardWidth  	 = boardWidth;
 	this.boardHeight 	 = boardHeight;
 	this.isRunning   	 = 0;
@@ -14,21 +17,36 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.getSnake		 = genGetSnake(this);
 	this.getSnakes		 = ()=>{return this.snakes};
 	this.growSnake		 = genGrowSnake(this);
-	
+
 	this.changeDirection = genGetChangeDirection(this);//this does not bound check
-	
+
 	this.getBonuses  	 = ()=>{return this.bonuses};
 	this.makeBonus 		 = genMakeBonus(this);
-	
+
 	this.getBoardWidth   = ()=>{return this.boardWidth};
 	this.getBoardHeight  = ()=>{return this.boardHeight};
-	
-	
+
+	this.newGame = ()=>{
+		snakes = [new Snake(2,2, new Vector(0,1), 0), new Snake(4,4, new Vector(0,1), 1)];
+		//snakes[0] = new Snake(2,2, new Vector(0,1), 0);
+		//snakes[1] = new Snake(4,4, new Vector(0,1), 1);
+	}
+	this.lastWinner = -1;
+
 	this.getClock
 	this.incClock
-	this.getModel 	     = ()=>{return this};
-	this.getIsRunning    = ()=>{return this.isRunning}; 
+	//this.getModel 	     = ()=>{return this};
+	this.getIsRunning    = ()=>{return this.isRunning};
 };
+
+function getModel()
+{
+	if(!modelSingletonInstance) {
+		modelSingleton = new Model(12, 9, 0);
+		modelSingletonInstance = true;
+	}
+	return modelSingleton;
+}
 
 function genAddSnake(model) // snake adder
 {
@@ -67,7 +85,7 @@ function genGrowSnake(model) // adds new body part
 		{
 			objList = objList.concat(snakes[i].getBody());
 		}
-		model.getSnake(ID).addBody(objList);
+		//model.getSnake(ID).addBody(objList);
 	}
 	return func;
 }
@@ -87,9 +105,9 @@ function genGetChangeDirection(model) //changes direction of snake associated wi
 							   //this no issue
 function genMakeBonus(model)
 {
-	//helper function 
+	//helper function
 	//checks an x y to see if there already is object there
-	function objectInTheWay(x,y) 
+	function objectInTheWay(x,y)
 	{
 		var ret = false;
 		var objList = [];
@@ -107,10 +125,10 @@ function genMakeBonus(model)
 		}
 		return ret;
 	}
-	//generated function 
+	//generated function
 	// keeps generating random x and y in bounds
 	//until there is no object in the way and returns that x y
-	function func() 
+	function func()
 	{
 		x = Math.round(Math.random() % model.boardWidth);
 		y = Math.round(Math.random() % model.boardHeight);
@@ -122,7 +140,7 @@ function genMakeBonus(model)
 		model.bonuses = model.bonuses.concat([[x,y]]);
 	}
 	return func;
-	
+
 	/* //wrapper
 	function wrapper()
 	{
@@ -131,7 +149,8 @@ function genMakeBonus(model)
 			func();
 		}
 	}
-	
+
 	return wrapper;*/
 }
-						   
+
+getModel();

@@ -45,12 +45,10 @@ testSnakeAddBodyToAltCoordII();
 
 function testSnakeMove()
 {
-	var env = []
-	var blist = []
 	var s = new Snake(4,4,[1,0]);
 	for(var i = 0; i < 50 ; i++)
 	{
-		s.move(env, blist);
+		s.move();
 	}
 	for(var j = 0; j < 3 ; j++)
 	{
@@ -61,7 +59,7 @@ function testSnakeMove()
 	s = new Snake(4,4,[-1,0]);
 	for(var i = 0; i < 50 ; i++)
 	{
-		s.move(env, blist);
+		s.move();
 	}
 	for(var j = 0; j < 3 ; j++)
 	{
@@ -72,7 +70,7 @@ function testSnakeMove()
 	s = new Snake(4,4,[0,-1]);
 	for(var i = 0; i < 50 ; i++)
 	{
-		s.move(env, blist);
+		s.move();
 	}
 	for(var j = 0; j < 3 ; j++)
 	{
@@ -83,7 +81,7 @@ function testSnakeMove()
 	s = new Snake(4,4,[0,1]);
 	for(var i = 0; i < 50 ; i++)
 	{
-		s.move(env, blist);
+		s.move();
 	}
 	for(var j = 0; j < 3 ; j++)
 	{
@@ -97,23 +95,21 @@ testSnakeMove();
 
 function testChangeDirectionSnake()
 {
-	var env = []
-	var blist = []
 	var s = new Snake(4,4,[1,0]);
-	s.move(env, blist);
-	s.move(env, blist);
+	s.move();
+	s.move();
 	s.changeDirection([0,-1]);
 	s.changeDirection([0,1]);
 	s.changeDirection([0,-1]);
-	s.move(env, blist);
-	s.move(env, blist);
-	s.move(env, blist);
+	s.move();
+	s.move();
+	s.move();
 	s.changeDirection([-1,0]);
 	s.changeDirection([1, 0]);
-	s.move(env, blist);
+	s.move();
 	s.changeDirection([0,1]);
 	s.changeDirection([0, -1]);
-	s.move(env, blist);
+	s.move();
 	
 	console.assert(s.body[0].x == 5 && s.body[0].y == 2,
 				   "body not changedDirection correctly",s.body[0]);
