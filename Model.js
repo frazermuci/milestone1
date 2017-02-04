@@ -38,6 +38,8 @@ function Model(boardWidth,boardHeight, snakeID)
 		this.getSnake(1).resetSnake(9,7,new Vector(-1,0));
 		this.bonuses[0] = new Vector(7,2);
 		this.bonuses[1] = new Vector(4,7);
+		this.score[0] = 0;
+		this.score[1] = 0;
 	}
 	this.lastWinner = -1;
 
@@ -70,15 +72,6 @@ function genGetSnake(model) // finds snake that is associated with model
 	function func(ID)
 	{
 		return model.snakes[ID];
-		var i = 0;
-		for(; i < model.snakes.length; i++)
-		{
-			if(ID == model.snakes[i].getID())
-			{
-				break;
-			}
-		}
-		return model.snakes[i];
 	}
 	return func;
 }
@@ -91,18 +84,6 @@ function genGrowSnake(model) // adds new body part
 		var nP = s.getHead().add(s.getDirection());
 		//console.log(s.getHead());
 		s.addBody(nP);
-		return;
-		//s.head = 
-		//s.addBody(s.getHead().add(s.direction));
-		
-		var objList = [];
-		var snakes  = model.snakes;
-		//constructs objList to check if where to put new body part
-		for(var i = 0; i < snakes.length; i++)
-		{
-			objList = objList.concat(snakes[i].getBody());
-		}
-		//model.getSnake(ID).addBody(objList);
 	}
 	return func;
 }
@@ -144,34 +125,18 @@ function genMakeBonus(model)
 				return true;
 		}
 		return false;
-		
-		var ret = false;
-		var objList = [];
-		//constructs objList to compare x y
-		model.snakes.map((x)=>{objList.concat(x.body)});
-		objList.concat(model.bonuses);
-		for(var i = 0; i < objList.length; i++)
-		{
-			var xy = convertVectorToArray(objList[i]);
-			ret = (x == xy[0] && y == xy[1]);
-			if(ret)
-			{
-				break;
-			}
-		}
-		return ret;
 	}
 	//generated function
 	// keeps generating random x and y in bounds
 	//until there is no object in the way and returns that x y
 	function func(bid)
 	{
-		x = Math.round(Math.random() * model.boardWidth);
-		y = Math.round(Math.random() * model.boardHeight);
+		x = Math.floor(Math.random() * model.boardWidth);
+		y = Math.floor(Math.random() * model.boardHeight);
 		while(objectInTheWay(x,y))
 		{
-			x = Math.round(Math.random() * model.boardWidth);
-			y = Math.round(Math.random() * model.boardHeight);
+			x = Math.floor(Math.random() * model.boardWidth);
+			y = Math.floor(Math.random() * model.boardHeight);
 		}
 		model.bonuses[bid] = new Vector(x,y);
 		//model.bonuses = model.bonuses.concat([[x,y]]);

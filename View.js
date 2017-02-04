@@ -43,6 +43,8 @@ function ViewDraw(xPos, yPos, nbPos, color)
         var tile = document.getElementById('tile' + (xPos[i] + yPos[i] * getModel().boardWidth));
         tile.className = color;
     }
+	var snake1Score = document.getElementById("Snake1")
+	var snake2Score = document.getElementById("Snake2")
 }
 
 // Just an image
@@ -71,15 +73,6 @@ function ViewStartScreen()
 						6,6,6,6,6,  7,7,7,7,7];
 		var nbPos = 6+2*7+2*7+2*5;
 		ViewDraw(xPos, yPos, nbPos, (lastWin == 1 ? 'tileHeadA' : 'tileHeadB'));
-        //
-        // X X X X X  X
-        // X X X X XX X
-        // X X X X XX X
-        // X X X X X XX
-        // X X X X X XX
-        //  X X  X X  X
-        //  X X  X X  X
-        //
     }
     else
     {
@@ -109,12 +102,12 @@ function ViewGame()
     ViewResetScreen();
 
     // Test Refresh
-    viewTest = (viewTest == false);
+    /*viewTest = (viewTest == false);
     var ccbb = "tileHeadA";
     if(viewTest)
         ccbb = "tileHeadB";
     var kek = document.getElementById('tile10');
-    kek.className = ccbb;
+    kek.className = ccbb;*/
 	
 	var snake1 = getModel().getSnake(0);
     var snake2 = getModel().getSnake(1);
@@ -144,23 +137,13 @@ function ViewGame()
 		var tile = ViewVectorToTile(bonuses[i]);
 		tile.className = 'tileBonus';
 	}
-	
-    // look at the snakes, heads and bonus to put them where they belong
-    // FOREACH element in snake
-    //      var tile = document.getElementById('tile' + (x+y*width))
-    //      tile.className = "tileSnakeX"
-
-    // FOREACH head
-    //      var tile = document.getElementById('tile' + (x+y*width))
-    //      tile.className = "tileHeadX"
-
-    // For bonus pos
-    //      var tile = document.getElementById('tile' + (x+y*width))
-    //      tile.className = "tileBonus"
 }
 
 function ViewRefresh()
 {
+	var scoreTitle = document.getElementById("toptitle");
+	scoreTitle.innerHTML = getModel().score[0] +" - "+getModel().score[1];
+	
     // If game is running
     if(getModel().isRunning == 1)
         ViewGame();

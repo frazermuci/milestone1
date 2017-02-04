@@ -21,11 +21,12 @@ function Socket(model){
 		//assumes client 0 based ids
 			this.connection.send("init:"+0+":"+1);
 		}
-		//console.log(e.data)
+		console.log(e.data)
 		this.scoreArray[0] = array[0];
 		this.scoreArray[1] = array[1];
 		this.model.setScore(this.scoreArray);
 		this.count =0;
+		ViewRefresh();
 	}
 	this.sendMessage = function(inc)
 	{

@@ -77,6 +77,18 @@ function ControllerTick()
             lose1=true;
     }
 
+    // Colliding with yourself
+    for(var i = 1; i < body1.length; i++)
+    {
+        if(head1.equals(body1[i]))
+            lose1=true;
+    }
+    for(var i = 1; i < body2.length; i++)
+    {
+        if(head2.equals(body2[i]))
+            lose2=true;
+    }
+
     // Check victory condition (+ tie)
     if(lose1 && lose2)
         ControllerTie();
@@ -124,5 +136,5 @@ function ControllerMainLoop()
     }
 }
 
-controllerInterval = window.setInterval(ControllerMainLoop, 1000);
+controllerInterval = window.setInterval(ControllerMainLoop, 750);
 ControllerNewGame();
