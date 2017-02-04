@@ -20,7 +20,7 @@ function handleKeyPress(event)
 	}
 	else if (code == 38)
 	{
-		vector.setY(1);
+		vector.setY(-1);
 		ControllerChangeDirection(0, vector);
 		console.log("up");
 	}
@@ -32,8 +32,33 @@ function handleKeyPress(event)
 	}
 	else if (code == 40)
 	{
-		vector.setY(-1);
+		vector.setY(1);
 		ControllerChangeDirection(0, vector);
+		console.log("down");
+	}
+	if (code == 97)
+	{
+	 	vector.setX(-1);
+		ControllerChangeDirection(1, vector);
+		console.log("left");
+		
+	}
+	else if (code == 119)
+	{
+		vector.setY(-1);
+		ControllerChangeDirection(1, vector);
+		console.log("up");
+	}
+	else if (code == 100)
+	{
+		vector.setX(1);
+		ControllerChangeDirection(1, vector);
+		console.log("right");
+	}
+	else if (code == 115)
+	{
+		vector.setY(1);
+		ControllerChangeDirection(1, vector);
 		console.log("down");
 	}
 }
