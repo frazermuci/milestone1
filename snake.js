@@ -148,8 +148,11 @@ function giveChangeDirection(snake)
 	var func = function(v)
 	{
 		var xy = convertVectorToArray(v);
+
+		var snakedir = convertVectorToArray(snake.direction);
+
 		var dir  = translateDirection([xy[0], xy[1]]);
-		var sdir = translateDirection([snake.direction[0], snake.direction[1]]);
+		var sdir = translateDirection([snakedir[0], snakedir[1]]);
 		if(!checkOppo(dir, sdir))
 		{
 			snake.direction = v;

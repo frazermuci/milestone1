@@ -9,9 +9,12 @@ function Model(boardWidth,boardHeight, snakeID)
 	this.bonuses 	 	 = [new Vector(6,5), new Vector(5,6)];
 	this.snakes 	 	 = [new Snake(2,2,new Vector(0,1), 0),
 								new Snake(4,4,new Vector(0,1), 0)];
+	this.score			 = [0,0];
 	this.boardWidth  	 = boardWidth;
 	this.boardHeight 	 = boardHeight;
 	this.isRunning   	 = 0;
+	
+	this.setScore		 = (score)=>{this.score = score};
 	this.addSnake 		 = genAddSnake(this);
 	this.getNumberSnakes = ()=>{return this.snakes.length};
 	this.getSnake		 = genGetSnake(this);
@@ -25,6 +28,7 @@ function Model(boardWidth,boardHeight, snakeID)
 
 	this.getBoardWidth   = ()=>{return this.boardWidth};
 	this.getBoardHeight  = ()=>{return this.boardHeight};
+	
 
 	this.newGame = ()=>{
 		//snakes = [new Snake(2,2, new Vector(0,1), 0), new Snake(4,4, new Vector(0,1), 1)];

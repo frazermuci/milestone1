@@ -1,21 +1,24 @@
 var controllerInterval;
-
+var socket;
 
 function ControllerNewGame()
 {
     getModel().newGame();
     getModel().isRunning = 1;
 	ViewRefresh();
+	socket = new Socket(getModel());
 }
 
 function ControllerStopGame()
 {
     getModel().isRunning = 0;
 	ViewRefresh();
+	socket.done();
 }
 
 function ControllerTie()
 {
+
 	console.log("TIE");
 	getModel().lastWinner = 0;
 	ControllerStopGame();
@@ -90,11 +93,16 @@ function ControllerTick()
 		{
 			snake1.eatBonus();
 			getModel().makeBonus(i);
+
+			socket.sendMessage(0)
 		}
 		if(head2.equals(bonuses[i]))
 		{
 			snake2.eatBonus();
 			getModel().makeBonus(i);
+
+			socket.sendMessage(1);
+
 		}
 	}
 	
