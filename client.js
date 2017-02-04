@@ -20,6 +20,8 @@ function Socket(model){
 		{
 		//assumes client 0 based ids
 			var ids = this.model.getIds();
+			
+			console.log("init:"+ids[0]+":"+ids[1]);
 			this.connection.send("init:"+ids[0]+":"+ids[1]);
 		}
 		console.log(e.data)
