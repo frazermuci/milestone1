@@ -1,6 +1,9 @@
+var clientAddress = "127.0.0.1";
+var clientPort = "21234";
+
 function Socket(model){
 	this.model = model;
-	this.connection = new WebSocket('ws://127.0.0.1:21234', ['soap', 'xmpp']);
+	this.connection = new WebSocket('ws://'+clientAddress+':'+clientPort, ['soap', 'xmpp']);
 	
 
 
