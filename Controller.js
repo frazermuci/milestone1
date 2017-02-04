@@ -137,4 +137,4 @@ function ControllerMainLoop()
 }
 
 controllerInterval = window.setInterval(ControllerMainLoop, 750);
-ControllerNewGame();
+//ControllerNewGame();

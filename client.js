@@ -13,7 +13,6 @@ function Socket(model){
 
 // Log messages from the server
 	this.connection.onmessage = (e)=> {
-		console.log('Server Score: ' + e.data);
 		//this is in scope?
 		var array = e.data.split(":");
 		if(this.count)

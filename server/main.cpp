@@ -72,20 +72,28 @@ void messageHandler(int clientID, string message){
 	else if(check_init_sub(message))
 	{
 		ostringstream id;
-		
+		int count =-1;
+		cout << message << endl;
 		for(int i =0; i < message.size(); i++)
 		{
-			id << message[i];
-			if(strcmp(id.str().c_str(),"init") != 0)
+			if(message[i] != ':')
 			{
-				//stores given ids in map id associated with score
-
-				ids[i] = atoi(id.str().c_str());
-				server.ClientScore.insert(pair<int,int>(i,0));
-
+				id << message[i];
+			}
+			else
+			{
+				if(count != -1)
+				{
+					ids[count] = atoi(id.str().c_str());
+					cout << id.str() << endl;
+					server.ClientScore.insert(pair<int,int>(count,0));
+				}
+				count++;
 				id.str("");
 			}
+			
 		}
+		ids[count] = atoi(id.str().c_str());
 	}
 	else
 	{	
