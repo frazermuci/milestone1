@@ -4,15 +4,66 @@ function Snake(x, y, direction, ID)
 {
 	//maybe initialize with two or three and don't pass in
 	this.ID = ID;
-	this.body = genBodyList(x, y, direction);
-	this.direction = convertVectorToArray(direction);
+	//this.body = genBodyList(x, y, direction);
+	this.direction = direction;//convertVectorToArray(direction);
 	this.changeDirection = giveChangeDirection(this);
-	this.addBody = giveAddBody(this);
+	this.getDirection = () => {
+		return this.direction;
+	}
+	//this.addBody = giveAddBody(this);
 	this.move = giveMove(this);
-	this.getBody = ()=>{return this.body};
-	this.getID = ()=>{return this.ID};
+	//this.getBody = ()=>{return this.body};
+	this.getID = ()=>{return this.ID}
+	this.resetSnake = (xPos,yPos,dir)=>{
+		//this.body = genBodyList(x,y,direction);
+		//console.log(dir);
+		this.body[0] = new Vector(xPos,yPos);
+		this.changeDirection(dir);
+		this.pointerHead = 0;
+		this.pointerTail = 0;
+		this.length = 3;
+	}
+	
+	this.body = [new Vector(x,y),new Vector(0,0),new Vector(0,0),new Vector(0,0),
+				new Vector(0,0),new Vector(0,0),new Vector(0,0),new Vector(0,0),
+				new Vector(0,0),new Vector(0,0),new Vector(0,0),new Vector(0,0)];
+	this.pointerHead = 0;
+	this.pointerTail = 0;
+	this.maxLength = 12;
+	this.length = 3;
+	this.getRealLength = ()=>{
+		return this.pointerHead - this.pointerTail + 1
+		+ (this.pointerTail > this.pointerHead ? this.maxLength : 0);
+	}
+	this.getBody = () =>{
+		var bod = [];
+		var len = this.getRealLength();
+		var i = this.pointerHead;
+		for(var nb = 0; nb < len; nb++) {
+			bod.push(this.body[i]);
+			i--;
+			if(i<0)
+				i += this.maxLength;
+		}
+		return bod;
+	}
+	this.addBody = (vector) => {
+		//console.log(vector);
+		if(this.getRealLength() >= this.length)
+		{
+			this.pointerTail = (this.pointerTail+1)%this.maxLength;
+		}
+		this.pointerHead = (this.pointerHead+1)%this.maxLength;
+		this.body[this.pointerHead] = vector;
+	}
+	
 	this.getHead = ()=>{
-		return new Vector(1 + this.ID, 1 + this.ID);
+		return this.body[this.pointerHead];
+	}
+	
+	this.eatBonus = ()=>{
+		if(this.length < this.maxLength)
+			this.length++;
 	}
 };
 
@@ -24,7 +75,7 @@ function genBodyList(x, y, direction)//start at some coords and do not hard code
 	var cdirection = [0,0];
 	var dx = x;
 	var dy = y;
-	for(var i = 0; i< 3; i++)
+	for(var i = 0; i< 1; i++)
 	{
 		//body = body.concat([new Body(dx, dy)]);
 		//body = body.concat([new Vector(dx, dy)]);
@@ -94,14 +145,14 @@ function giveMove(snake)
 //check for whether or not change happens in oppo direction
 function giveChangeDirection(snake)
 {
-	var func = function(xy)
+	var func = function(v)
 	{
-		xy = convertVectorToArray(xy);
+		var xy = convertVectorToArray(v);
 		var dir  = translateDirection([xy[0], xy[1]]);
 		var sdir = translateDirection([snake.direction[0], snake.direction[1]]);
 		if(!checkOppo(dir, sdir))
 		{
-			snake.direction = xy;
+			snake.direction = v;
 		}
 	}
 	return func;

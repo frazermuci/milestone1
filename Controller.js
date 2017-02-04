@@ -1,13 +1,31 @@
 var controllerInterval;
 
+
+function ControllerNewGame()
+{
+    getModel().newGame();
+    getModel().isRunning = 1;
+	ViewRefresh();
+}
+
+function ControllerStopGame()
+{
+    getModel().isRunning = 0;
+	ViewRefresh();
+}
+
 function ControllerTie()
 {
-
+	console.log("TIE");
+	getModel().lastWinner = 0;
+	ControllerStopGame();
 }
 
 function ControllerWin(id)
 {
-
+	console.log("WIN " + id);
+	getModel().lastWinner = id+1;
+	ControllerStopGame();
 }
 
 function ControllerTick()
@@ -32,15 +50,17 @@ function ControllerTick()
     var lose2 = false;
 
     // Heads colliding
-    if(head1.equals(head2))
+    /*if(head1.equals(head2))
     {
         lose1 = true;
         lose2 = true;
-    }
+    }*/
 
     // Out of the board
-    if(head1.x >= 0 && head1.x < getModel().boardWidth && head2.x >= 0 && head2.x < getModel().boardHeight)
+    if(!(head1.x >= 0 && head1.x < getModel().boardWidth && head1.y >= 0 && head1.y < getModel().boardHeight))
         lose1 = true;
+    if(!(head2.x >= 0 && head2.x < getModel().boardWidth && head2.y >= 0 && head2.y < getModel().boardHeight))
+        lose2 = true;
 
     // Colliding with other snake
     for(var i = 0; i < body1.length; i++)
@@ -58,13 +78,27 @@ function ControllerTick()
     if(lose1 && lose2)
         ControllerTie();
     else if(lose1)
-        ControllerWin(2);
-    else if(lose2)
         ControllerWin(1);
-
-
+    else if(lose2)
+        ControllerWin(0);
+	
     // Check bonus (head at bonus position)
-    // Increment Clock
+	var bonuses = getModel().getBonuses();
+    for(var i = 0; i < bonuses.length; i++)
+	{
+		if(head1.equals(bonuses[i]))
+		{
+			snake1.eatBonus();
+			getModel().makeBonus(i);
+		}
+		if(head2.equals(bonuses[i]))
+		{
+			snake2.eatBonus();
+			getModel().makeBonus(i);
+		}
+	}
+	
+	// Increment Clock
     ViewRefresh();
 }
 
@@ -80,17 +114,6 @@ function ControllerMainLoop()
     {
         ControllerTick();
     }
-}
-
-function ControllerNewGame()
-{
-    getModel().newGame();
-    getModel().isRunning = 1;
-}
-
-function ControllerStopGame()
-{
-    getModel().isRunning = 0;
 }
 
 controllerInterval = window.setInterval(ControllerMainLoop, 1000);
