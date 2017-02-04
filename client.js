@@ -19,7 +19,8 @@ function Socket(model){
 		if(this.count)
 		{
 		//assumes client 0 based ids
-			this.connection.send("init:"+0+":"+1);
+			var ids = this.model.getIds();
+			this.connection.send("init:"+ids[0]+":"+ids[1]);
 		}
 		console.log(e.data)
 		this.scoreArray[0] = array[0];

@@ -84,6 +84,9 @@ public:
 class webSocket{
 public:
 	map<int,int> ClientScore;
+
+	int ids[2] = {0,0};
+
     webSocket(){
         callOnOpen = NULL;
         callOnClose = NULL;
