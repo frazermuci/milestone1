@@ -79,8 +79,10 @@ void messageHandler(int clientID, string message){
 			if(strcmp(id.str().c_str(),"init") != 0)
 			{
 				//stores given ids in map id associated with score
+
 				server.ids[i] = atoi(id.str().c_str());
 				server.ClientScore.insert(pair<int,int>(i,0));
+
 				id.str("");
 			}
 		}
@@ -110,7 +112,9 @@ void messageHandler(int clientID, string message){
 		cout << "ids:" << endl;
 		for(int i =  0; i < server.ClientScore.size(); i++)
 		{
+
 			cout << "id: " << server.ids[i] << "  "<<"score: "<< server.ClientScore[i]<<endl; 
+
 		}
 	}
 }
