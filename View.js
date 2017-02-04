@@ -63,6 +63,14 @@ function ViewStartScreen()
     }
     else if(lastWin == 1 || lastWin == 2)
     {
+		var xPos = [0,2,4,6,8,11, 0,2,4,6,8,9,11, 0,2,4,6,8,9,11,
+						0,2,4,6,8,10,11, 0,2,4,6,8,10,11,
+						1,3,6,8,11, 1,3,6,8,11];
+		var yPos = [1,1,1,1,1,1,  2,2,2,2,2,2,2,  3,3,3,3,3,3,3,
+						4,4,4,4,4,4,4,   5,5,5,5,5,5,5,
+						6,6,6,6,6,  7,7,7,7,7];
+		var nbPos = 6+2*7+2*7+2*5;
+		ViewDraw(xPos, yPos, nbPos, (lastWin == 1 ? 'tileHeadA' : 'tileHeadB'));
         //
         // X X X X X  X
         // X X X X XX X
@@ -87,6 +95,11 @@ function ViewStartScreen()
     }
 }
 
+function ViewVectorToTile(vector)
+{
+	return document.getElementById('tile'+(vector.y*getModel().boardWidth+vector.x));
+}
+
 function ViewGame()
 {
     var width = getModel().boardWidth;
@@ -100,8 +113,8 @@ function ViewGame()
     var ccbb = "tileHeadA";
     if(viewTest)
         ccbb = "tileHeadB";
-    var tile = document.getElementById('tile10');
-    tile.className = ccbb;
+    var kek = document.getElementById('tile10');
+    kek.className = ccbb;
 	
 	var snake1 = getModel().getSnake(0);
     var snake2 = getModel().getSnake(1);
@@ -112,15 +125,24 @@ function ViewGame()
     var body1 = snake1.getBody();
     var body2 = snake2.getBody();
 	
+	//console.log(body1);
 	for(var i = 0; i < body1.length; i++)
 	{
-		var tile = document.getElementById('tile'+(body1[i].y*getModel().boardWidth+body1[i].x));
-		tile.className = 'tileSnakeA';
+		var tile = ViewVectorToTile(body1[i]);
+		tile.className = (i == 0 ? 'tileHeadA' : 'tileSnakeA');
 	}
 	for(var i = 0; i < body2.length; i++)
 	{
-		var tile = document.getElementById('tile'+(body2[i].y*getModel().boardWidth+body2[i].x));
-		tile.className = 'tileSnakeB';
+		var tile = ViewVectorToTile(body2[i]);
+		tile.className = (i == 0 ? 'tileHeadB' : 'tileSnakeB');
+	}
+	
+	var bonuses = getModel().getBonuses();
+	//console.log(bonuses);
+	for(var i = 0; i < bonuses.length; i++)
+	{
+		var tile = ViewVectorToTile(bonuses[i]);
+		tile.className = 'tileBonus';
 	}
 	
     // look at the snakes, heads and bonus to put them where they belong

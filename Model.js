@@ -6,15 +6,15 @@ function Model(boardWidth,boardHeight, snakeID)
 {
 	this.snakeID		 = snakeID;// idea it gets ID from server and associates that snake
 								   // with local model
-	this.score 			 = [0,0];
-	this.bonuses 	 	 = [];
-
+	this.bonuses 	 	 = [new Vector(6,5), new Vector(5,6)];
 	this.snakes 	 	 = [new Snake(2,2,new Vector(0,1), 0),
 								new Snake(4,4,new Vector(0,1), 0)];
-
+	this.score			 = [0,0];
 	this.boardWidth  	 = boardWidth;
 	this.boardHeight 	 = boardHeight;
 	this.isRunning   	 = 0;
+	
+	this.setScore		 = (score)=>{this.score = score};
 	this.addSnake 		 = genAddSnake(this);
 	this.getNumberSnakes = ()=>{return this.snakes.length};
 	this.getSnake		 = genGetSnake(this);
@@ -23,28 +23,27 @@ function Model(boardWidth,boardHeight, snakeID)
 
 	this.changeDirection = genGetChangeDirection(this);//this does not bound check
 
-	this.setScore        = (score)=>{this.score = score};
-
-
-
 	this.getBonuses  	 = ()=>{return this.bonuses};
 	this.makeBonus 		 = genMakeBonus(this);
 
 	this.getBoardWidth   = ()=>{return this.boardWidth};
 	this.getBoardHeight  = ()=>{return this.boardHeight};
+	
 
 	this.newGame = ()=>{
-		snakes = [new Snake(2,2, new Vector(0,1), 0), new Snake(4,4, new Vector(0,1), 1)];
+		//snakes = [new Snake(2,2, new Vector(0,1), 0), new Snake(4,4, new Vector(0,1), 1)];
 		//snakes[0] = new Snake(2,2, new Vector(0,1), 0);
 		//snakes[1] = new Snake(4,4, new Vector(0,1), 1);
+		this.getSnake(0).resetSnake(2,2,new Vector(1,0));
+		this.getSnake(1).resetSnake(9,7,new Vector(-1,0));
+		this.bonuses[0] = new Vector(7,2);
+		this.bonuses[1] = new Vector(4,7);
 	}
 	this.lastWinner = -1;
 
 	this.getClock
 	this.incClock
-
 	//this.getModel 	     = ()=>{return this};
-
 	this.getIsRunning    = ()=>{return this.isRunning};
 };
 
@@ -70,6 +69,7 @@ function genGetSnake(model) // finds snake that is associated with model
 {
 	function func(ID)
 	{
+		return model.snakes[ID];
 		var i = 0;
 		for(; i < model.snakes.length; i++)
 		{
@@ -87,6 +87,14 @@ function genGrowSnake(model) // adds new body part
 {
 	function func(ID)
 	{
+		var s = model.getSnake(ID);
+		var nP = s.getHead().add(s.getDirection());
+		//console.log(s.getHead());
+		s.addBody(nP);
+		return;
+		//s.head = 
+		//s.addBody(s.getHead().add(s.direction));
+		
 		var objList = [];
 		var snakes  = model.snakes;
 		//constructs objList to check if where to put new body part
@@ -118,6 +126,25 @@ function genMakeBonus(model)
 	//checks an x y to see if there already is object there
 	function objectInTheWay(x,y)
 	{
+		var snakes = model.getSnakes();
+		for(var i = 0; i < snakes.length; i++)
+		{
+			var body = snakes[i].getBody();
+			for(var j = 0; j < body.length; j++)
+			{
+				if(body[j].equals(new Vector(x,y)))
+					return true;
+			}
+		}
+		
+		var bonuses = model.getBonuses();
+		for(var i = 0; i < bonuses.length; i++)
+		{
+			if(bonuses[i].equals(new Vector(x,y)))
+				return true;
+		}
+		return false;
+		
 		var ret = false;
 		var objList = [];
 		//constructs objList to compare x y
@@ -137,16 +164,17 @@ function genMakeBonus(model)
 	//generated function
 	// keeps generating random x and y in bounds
 	//until there is no object in the way and returns that x y
-	function func()
+	function func(bid)
 	{
-		x = Math.round(Math.random() % model.boardWidth);
-		y = Math.round(Math.random() % model.boardHeight);
+		x = Math.round(Math.random() * model.boardWidth);
+		y = Math.round(Math.random() * model.boardHeight);
 		while(objectInTheWay(x,y))
 		{
-			x = Math.round(Math.random() % model.boardWidth);
-			y = Math.round(Math.random() % model.boardHeight);
+			x = Math.round(Math.random() * model.boardWidth);
+			y = Math.round(Math.random() * model.boardHeight);
 		}
-		model.bonuses = model.bonuses.concat([[x,y]]);
+		model.bonuses[bid] = new Vector(x,y);
+		//model.bonuses = model.bonuses.concat([[x,y]]);
 	}
 	return func;
 
@@ -162,6 +190,4 @@ function genMakeBonus(model)
 	return wrapper;*/
 }
 
-
 getModel();
-

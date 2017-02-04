@@ -46,8 +46,10 @@ function genAdd(vector)
 {
 	function func(v2)
 	{
-		vector.x = vector.x + v2[0];
-		vector.y = vector.y + v2[1];
+		//console.log("aaa");
+		return new Vector(vector.x + v2.x, vector.y + v2.y)
+		//vector.x = vector.x + v2[0];
+		//vector.y = vector.y + v2[1];
 	}
 	return func;
 }
@@ -55,7 +57,8 @@ function genEquals(vector)
 {
 	function func(v2)
 	{
-		return vector.x == v2[0] && vector.y == v2[1];
+		return (vector.x == v2.x && vector.y == v2.y);
 	}
 	return func;
 }
+var vectorLeft = new Vector(-1,0);
