@@ -4,6 +4,8 @@ a couple things to note:
 -the server modifies the chatroom example
 -the scores are stored in a the ClientScore map 
 -the ids are stored in the ClientScore map
+-server sends / receives on port 21234
+-client listens on port 21234
 
 All members had some hand in the design and coding of 
 all of the files, and the overall architecture. 
